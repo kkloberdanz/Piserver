@@ -2,7 +2,10 @@
 
 This program will run a webserver from your rasberry pi 
 
-To get started, run 'setup.sh'
+To get started, run     './setup.sh' 
 
-To start the server     'cd ledpi' 
-then    ./manage.py runserver CURRENT_IP_ADDRESS
+Before starting the server, use a text editor such as vi to change the
+variable IP to be your machines ip address and the port number you want
+to use
+
+To start the server     './startserver.sh' 
