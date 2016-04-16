@@ -17,8 +17,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    # TODO: map root index
-    # url(r'^/',
     url(r'^piserver/', include('piserver.urls')),
     url(r'^admin/', admin.site.urls),
 ]

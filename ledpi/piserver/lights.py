@@ -1,5 +1,7 @@
+import HttpRequest
 import time
 import RPi.GPIO as GPIO
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(12, GPIO.OUT)
 # use pin 12 as output
