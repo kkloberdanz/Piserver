@@ -1,4 +1,4 @@
-import HttpRequest
+# from django.http import HttpRequest, HttpResponse
 import time
 import RPi.GPIO as GPIO
 
