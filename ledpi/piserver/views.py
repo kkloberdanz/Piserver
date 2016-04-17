@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 # from django.http import *
-from .models import Lights
+from django.core.urlresolvers import reverse
+from django.views import generic
+from .models import Lights, Choice
 
 # Create your views here.
 def index(request):
@@ -19,12 +21,44 @@ def index(request):
     # return HttpResponse(template.render(context, request))
     return render(request, 'piserver/index.html', context)
 
-def detail(request, light_id):
-    return HttpResponse("You're looking at light %s." % light_id)
+def detail(request, light_id): 
+    # return HttpResponse("You're looking at light %s." % light_id)
+    light = get_object_or_404(Lights, pk=light_id)
+    return render(request, 'piserver/detail.html', {'light':light})
 
 def results(request, light_id):
-    response = "You're looking at the results of light %s."
-    return HttpResponse(response % light_id)
+    light = get_object_or_404(Lights, pk=light_id)    
+    # response = "You're looking at the results of light %s."
+    # return HttpResponse(response % light_id)
+    return render(request, 'piserver/results.html', {'light':light})
 
 def flip(request, light_id):
-    return HttpResponse("You're fliping light %s." % light_id)
+    light = get_object_or_404(Lights, pk=light_id)
+    try:
+        selected_choice = light.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form.
+        return render(request, 'piserver/detail.html', {
+            'light': light,
+            'error_message': "You didn't select a choice.",
+        })
+    else:
+        # change this line, so the user can select ON or OFF
+        # as a radio button
+        # print(type(selected_choice.choice_text))
+        if selected_choice.choice_text == "Off":
+            selected_choice.on = 0
+        else:
+            selected_choice.on = 1
+
+        selected_choice.save()
+        print("light: ", light_id, " is now ", end='') 
+        if selected_choice.on:
+            print("On")
+        else:
+            print("Off")
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return HttpResponseRedirect(reverse('piserver:results', args=(light.id,)))    
+    # return HttpResponse("You're fliping light %s." % light_id)

@@ -1,7 +1,8 @@
 {% if latest_lights_list %}
     <ul>
     {% for light in latest_lights_list %}
-        <li><a href="/piserver/{{ light.id }}/">{{ light.light_text }}</a></li>
+        <!--<li><a href="/piserver/{{ light.id }}/">{{ light.light_text }}</a></li>-->
+        <li><a href="{% url 'piserver:detail' light.id %}">{{ light.light_text }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

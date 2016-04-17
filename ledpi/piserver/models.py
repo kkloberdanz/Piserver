@@ -17,7 +17,8 @@ class Lights(models.Model):
 class Choice(models.Model):
     light = models.ForeignKey(Lights, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    on = models.IntegerField(default=0)
+    on  = models.IntegerField(default=0)
+    off = models.IntegerField(default=1)
 
     def __str__(self):
         return self.choice_text

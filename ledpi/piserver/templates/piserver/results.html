@@ -1,0 +1,9 @@
+<h1>{{ light.light_text }}</h1>
+
+<ul>
+{% for choice in light.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.flip }} flip{{ choice.flips|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'piserver:detail' light.id %}">Flip again?</a>
