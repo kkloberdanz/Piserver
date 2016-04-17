@@ -1,0 +1,9 @@
+{% if latest_lights_list %}
+    <ul>
+    {% for light in latest_lights_list %}
+        <li><a href="/piserver/{{ light.id }}/">{{ light.light_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No lights are available.</p>
+{% endif %}
