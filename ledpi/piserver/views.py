@@ -7,9 +7,6 @@ from .models import Lights, Choice
 
 # Create your views here.
 def index(request):
-    # testing HTTP requests
-    print("request method: ", request.method)
-    print(request.GET)
 
     latest_lights_list = Lights.objects.order_by('-pub_date')[:5]
     # output = ', '.join([l.light_text for l in latest_lights_list])
@@ -34,6 +31,11 @@ def results(request, light_id):
 
 def flip(request, light_id):
     light = get_object_or_404(Lights, pk=light_id)
+
+    # testing HTTP requests
+    print("request method: ", request.method)
+    print("GET dict:", request.GET)
+    print("POST dict:", request.POST)
     try:
         selected_choice = light.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
