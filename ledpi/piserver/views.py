@@ -1,11 +1,15 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 # from django.http import *
 from django.core.urlresolvers import reverse
 from django.views import generic
 from .models import Lights, Choice
+from django.middleware.csrf import get_token
+
 
 # Create your views here.
+@csrf_exempt
 def index(request):
 
     latest_lights_list = Lights.objects.order_by('-pub_date')[:5]
@@ -18,18 +22,27 @@ def index(request):
     # return HttpResponse(template.render(context, request))
     return render(request, 'piserver/index.html', context)
 
+@csrf_exempt
 def detail(request, light_id): 
     # return HttpResponse("You're looking at light %s." % light_id)
     light = get_object_or_404(Lights, pk=light_id)
     return render(request, 'piserver/detail.html', {'light':light})
 
+@csrf_exempt
 def results(request, light_id):
     light = get_object_or_404(Lights, pk=light_id)    
     # response = "You're looking at the results of light %s."
     # return HttpResponse(response % light_id)
     return render(request, 'piserver/results.html', {'light':light})
 
+@csrf_exempt
 def flip(request, light_id):
+    # csrf_token = get_token(request)
+    # request.META["CSRF_COOKIE_USED"] = True
+    if request.method == 'POST':
+        print('here!!!!')
+        print("POST dict:", request.POST)
+
     light = get_object_or_404(Lights, pk=light_id)
 
     # testing HTTP requests
@@ -45,8 +58,6 @@ def flip(request, light_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        # change this line, so the user can select ON or OFF
-        # as a radio button
         # print(type(selected_choice.choice_text))
         if selected_choice.choice_text == "Off":
             selected_choice.on = 0
@@ -55,10 +66,14 @@ def flip(request, light_id):
 
         selected_choice.save()
         print("light: ", light_id, " is now ", end='') 
+        # outfile = open("lightValues", "w")
         if selected_choice.on:
             print("On")
+            # outfile.write(str(1))
         else:
             print("Off")
+            # outfile.write(str(0))
+        # outfile.close()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
