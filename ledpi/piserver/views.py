@@ -7,6 +7,9 @@ from django.views import generic
 from .models import Lights, Choice
 from django.middleware.csrf import get_token
 
+import RPi.GPIO as GPIO
+from .lights import *
+
 
 # Create your views here.
 @csrf_exempt

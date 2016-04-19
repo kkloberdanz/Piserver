@@ -30,9 +30,9 @@ PORT=':8000'
 echo 'DONE'
 echo "Running server from $IP$PORT"
 
-echo 'Starting Virtual Environment...'
-source ~/Virt/bin/activate 
-echo 'DONE'
+#echo 'Starting Virtual Environment...'
+#source ~/Virt/bin/activate 
+#echo 'DONE'
 
 cd ledpi
 
@@ -41,4 +41,4 @@ echo "*** Go to $IP$PORT/piserver to view the web page ***"
 echo ""
 echo "Starting server..."
 
-./manage.py runserver $IP$PORT
+python3 manage.py runserver $IP$PORT

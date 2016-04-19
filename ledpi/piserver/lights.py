@@ -1,21 +1,12 @@
-# from django.http import HttpRequest, HttpResponse
-import time
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(12, GPIO.OUT)
-# use pin 12 as output
-p = GPIO.PWM(12, 50) # channel=12 frequency=50Hz
-p.start(0)
-try:
-    while 1:
-        for dc in range(0, 101, 5):
-            p.ChangeDutyCycle(dc)
-            time.sleep(0.1)
-        for dc in range(100, -1, -5):
-            p.ChangeDutyCycle(dc)
-            time.sleep(0.1)
-except KeyboardInterrupt:
-    pass
-p.stop()
-GPIO.cleanup()
+def light1_on(): 
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(12, GPIO.OUT)
+    GPIO.output(12, GPIO.HIGH)
+
+def light1_off(): 
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(12, GPIO.OUT)
+    GPIO.output(12, GPIO.LOW) 
+
