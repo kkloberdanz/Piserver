@@ -1,17 +1,44 @@
 #!/bin/bash
 
-# Change the variable IP to whichever ip address and port number you 
-# want the server to run from
-#IP='172.17.87.191:8000'
+# Programmer: Kyle KLoberdanz
+#             This script runs the server from the current IP address
+#             and port 8000.
+#
+#             Once the server starts, type:
+#             IP_ADDRESS:PORT_NUMBER/piserver to view the webpage
+#               
+
+echo 'Getting current IP address...'
 
 # Get's hosts IP address, if it doesn't work, then comment this out,
 # and uncomment the line below that says 'IP='192.168...''
 IP=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 
+# check if IP is not empty
+if [ -z $IP ]
+then
+    echo "FAILED"
+    echo "Uncomment the line IP='192.168.1.18', and write the"
+    echo 'correct IP address'
+    exit 1
+fi
+
+
 #IP='192.168.1.18'
-PORT=':8000'
+PORT=':8000' 
 
+echo 'DONE'
+echo "Running server from $IP$PORT"
 
-source ~/Virt/bin/activate
+echo 'Starting Virtual Environment...'
+source ~/Virt/bin/activate 
+echo 'DONE'
+
 cd ledpi
+
+echo ""
+echo "*** Go to $IP$PORT/piserver to view the web page ***"
+echo ""
+echo "Starting server..."
+
 ./manage.py runserver $IP$PORT
