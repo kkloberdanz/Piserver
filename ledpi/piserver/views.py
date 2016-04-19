@@ -67,6 +67,7 @@ def flip(request, light_id):
         else:
             selected_choice.on = 1
 
+        flip_light(light_id, selected_choice.choice_text)
         selected_choice.save()
         print("light: ", light_id, " is now ", end='') 
         # outfile = open("lightValues", "w")
