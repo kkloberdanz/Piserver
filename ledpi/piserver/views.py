@@ -64,12 +64,16 @@ def flip(request, light_id):
         else:
             selected_choice.on = 1
 
+        print("Choice is:", selected_choice.choice_text)
+        print("Light is:", light_id)
         flip_light(light_id, selected_choice.choice_text)
         selected_choice.save()
+        '''
         print("light: ", light_id, " is now ", end='') 
         if selected_choice.on:
             print("On")
         else:
             print("Off")
+        '''
 
         return HttpResponseRedirect(reverse('piserver:results', args=(light.id,)))    

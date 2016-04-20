@@ -38,7 +38,7 @@ echo "Running server from $IP$PORT"
 cd ledpi
 
 echo ""
-echo "*** Go to $IP$PORT/piserver to view the web page ***"
+echo "*** Go to http://$IP$PORT/piserver/ to view the web page ***"
 echo ""
 echo "Starting server..."
 
