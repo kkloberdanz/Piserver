@@ -43,7 +43,6 @@ def flip(request, light_id):
     # csrf_token = get_token(request)
     # request.META["CSRF_COOKIE_USED"] = True
     if request.method == 'POST':
-        print('here!!!!')
         print("POST dict:", request.POST)
 
     light = get_object_or_404(Lights, pk=light_id)
@@ -55,13 +54,11 @@ def flip(request, light_id):
     try:
         selected_choice = light.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
         return render(request, 'piserver/detail.html', {
             'light': light,
             'error_message': "You didn't select a choice.",
         })
     else:
-        # print(type(selected_choice.choice_text))
         if selected_choice.choice_text == "Off":
             selected_choice.on = 0
         else:
@@ -70,16 +67,9 @@ def flip(request, light_id):
         flip_light(light_id, selected_choice.choice_text)
         selected_choice.save()
         print("light: ", light_id, " is now ", end='') 
-        # outfile = open("lightValues", "w")
         if selected_choice.on:
             print("On")
-            # outfile.write(str(1))
         else:
             print("Off")
-            # outfile.write(str(0))
-        # outfile.close()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
+
         return HttpResponseRedirect(reverse('piserver:results', args=(light.id,)))    
-    # return HttpResponse("You're fliping light %s." % light_id)

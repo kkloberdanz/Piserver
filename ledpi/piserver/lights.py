@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 
 def flip_light(light_id, choice):
     # pin_number = int(light_id) + 11
+    GPIO.setwarnings(False)
     if light_id == '1':
         pin_number = 12
     elif light_id == '2':

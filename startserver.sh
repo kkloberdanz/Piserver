@@ -8,6 +8,7 @@
 #             IP_ADDRESS:PORT_NUMBER/piserver to view the webpage
 #               
 
+trap '{ echo "Cleaning up GPIO..." ; python3 gpiocleanup.py; exit 1; }' INT
 echo 'Getting current IP address...'
 
 # Get's hosts IP address, if it doesn't work, then comment this out,

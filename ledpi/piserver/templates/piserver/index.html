@@ -1,3 +1,7 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'piserver/style.css' %}" />
+
 {% if latest_lights_list %}
     <ul>
     {% for light in latest_lights_list %}
