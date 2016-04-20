@@ -9,6 +9,14 @@ This program will run a webserver from your rasberry pi
 To get started, run
     './setup.sh' 
 
+This will install the requirements, which are as follows:
+    Django
+    Python 3 
+    Pip3
+
+If the script for some reason fails, ensure django is installed by running
+    sudo pip3 install django
+
 
 Run this script as the user 'pi' NOT as root.
 
@@ -26,7 +34,7 @@ the port number you want to use.
 To view the webpage, go to the ip address and port that the server is 
 broadcasting from, and append /piserver
 Example:
-    192.168.1.100:8000/piserver
+    http://192.168.1.100:8000/piserver/
 
 
 Admin login info
