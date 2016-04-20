@@ -2,13 +2,21 @@
 
 Ensure you have an internet connection in order for the setup to work
 
+
 This program will run a webserver from your rasberry pi 
 
-To get started, run     './setup.sh' 
+
+To get started, run
+    './setup.sh' 
+
+
 Run this script as the user 'pi' NOT as root.
 
 
-To start the server     './startserver.sh' 
+To start the server
+    './startserver.sh' 
+
+
 The server should use your current IP address, and will use port 8000
 If there is some problem with getting the ip address, use a text editor 
 such as vi to change the variable IP to be your machines ip address and 
